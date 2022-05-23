@@ -43,19 +43,7 @@ class CustomerTest extends TestCase
     {
         $this->expectException(OutOfBoundsException::class);
 
-        $customer = Customer::factory()->make();
-
-        $data = [
-            'first_name' => $customer->getFirstName(),
-            'last_name' => $customer->getLastName(),
-            'username' => $customer->getUsername(),
-            'password' => $customer->getPassword(),
-            'email' => $customer->getEmail(),
-            'gender' => $customer->getGender(),
-            'country' => $customer->getCountry(),
-            'city' => $customer->getCity(),
-            'phone' => $customer->getPhone()
-        ];
+        $data = $this->getDummyData();
 
         $customerData = new Customer($data);
 
@@ -68,19 +56,7 @@ class CustomerTest extends TestCase
 
     public function test_it_can_retrieve_a_customer()
     {
-        $customer = Customer::factory()->make();
-
-        $data = [
-            'first_name' => $customer->getFirstName(),
-            'last_name' => $customer->getLastName(),
-            'username' => $customer->getUsername(),
-            'password' => $customer->getPassword(),
-            'email' => $customer->getEmail(),
-            'gender' => $customer->getGender(),
-            'country' => $customer->getCountry(),
-            'city' => $customer->getCity(),
-            'phone' => $customer->getPhone()
-        ];
+        $data = $this->getDummyData();
 
         $customerData = new Customer($data);
 
@@ -98,18 +74,7 @@ class CustomerTest extends TestCase
     public function test_it_can_retrieve_all_customer()
     {
         for ($i = 0; $i < 10; $i++) {
-            $customer = Customer::factory()->make();
-
-            $data = [
-                'first_name' => $customer->getFirstName(),
-                'last_name' => $customer->getLastName(),
-                'username' => $customer->getUsername(),
-                'email' => $customer->getEmail(),
-                'gender' => $customer->getGender(),
-                'country' => $customer->getCountry(),
-                'city' => $customer->getCity(),
-                'phone' => $customer->getPhone()
-            ];
+            $data = $this->getDummyData();
 
             $customerData = new Customer($data);
 
@@ -123,5 +88,22 @@ class CustomerTest extends TestCase
         $customers = $repository->findAll();
 
         $this->assertEquals(10, count($customers));
+    }
+
+    private function getDummyData()
+    {
+        $customer = Customer::factory()->make();
+
+        return [
+            'first_name' => $customer->getFirstName(),
+            'last_name' => $customer->getLastName(),
+            'username' => $customer->getUsername(),
+            'password' => $customer->getPassword(),
+            'email' => $customer->getEmail(),
+            'gender' => $customer->getGender(),
+            'country' => $customer->getCountry(),
+            'city' => $customer->getCity(),
+            'phone' => $customer->getPhone()
+        ];
     }
 }
